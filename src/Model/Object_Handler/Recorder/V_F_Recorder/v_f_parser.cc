@@ -12,13 +12,6 @@
 //     std::cout << facet << " ";
 //     // << std::endl;
 //   }
-//   // for (const auto& facet : object_data.facets) {
-//   //   std::cout << "f";
-//   //   for (int index : facet) {
-//   //     std::cout << " " << index;
-//   //   }
-//   //   std::cout << std::endl;
-//   // }
 //   // const s21::Facet& last_facet = object_data.facets.back();
 //   // int first_index = last_facet.front();
 //   // int last_index = last_facet.back();

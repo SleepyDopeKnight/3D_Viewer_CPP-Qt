@@ -36,44 +36,38 @@ void ObjectObserver::paintGL() {
     max_z = model_.vertices[0].z;
   }
 
-for (const auto& vertex : model_.vertices) {
+  for (const auto &vertex : model_.vertices) {
     min_x = std::min(min_x, vertex.x);
     max_x = std::max(max_x, vertex.x);
     min_y = std::min(min_y, vertex.y);
     max_y = std::max(max_y, vertex.y);
     min_z = std::min(min_z, vertex.z);
     max_z = std::max(max_z, vertex.z);
-}
+  }
 
   float scene_size = std::max({max_x - min_x, max_y - min_y, max_z - min_z});
   float center_x = (min_x + max_x) / 2;
   float center_y = (min_y + max_y) / 2;
   float center_z = (min_z + max_z) / 2;
 
-//   float left = center_x - scene_size;
-//   float right = center_x + scene_size;
-//   float bottom = center_y - scene_size;
-//   float top = center_y + scene_size;
-//   float near = center_z - scene_size;
-  float far = center_z + scene_size;
+  //   float left = center_x - scene_size;
+  //   float right = center_x + scene_size;
+  //   float bottom = center_y - scene_size;
+  //   float top = center_y + scene_size;
+  //   float near = center_z - scene_size;
+  // float far = center_z + scene_size;
 
   // glOrtho(left, right, bottom, top, near, far);
   // ortho end
 
+  float top = tan(60.0 * M_PI / 180 / 2);  // Верхняя граница проекции
+  float bottom = -top;  // Нижняя граница проекции
+  float right = top;    // Правая граница проекции
+  float left = -right;  // Левая граница проекции
 
+  glFrustum(left, right, bottom, top, 1, 100000000000);
+  glTranslatef(-center_x, -center_y, -(scene_size + 1));
 
-float top =tan(60.0 * M_PI / 180 / 2); // Верхняя граница проекции
-float bottom = -top; // Нижняя граница проекции
-float right = top; // Правая граница проекции
-float left = -right; // Левая граница проекции
-
-glFrustum(left, right, bottom, top, 1, 100000000000);
-glTranslatef(-center_x, -center_y, -scene_size + (-1));
-
-
-
-
-  // glFrustum(-1, 1, -1, 1, 1, 99999);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
@@ -91,6 +85,11 @@ void ObjectObserver::draw_model() {
   // glLineStipple(1, 0x1010);
   glLineWidth(1);
   glColor3d((double)255 / 255, (double)255 / 255, (double)255 / 255);
+
+  // glRotatef(180, 0, 1, 0); 180 градусов вокруг оси y(1)
+  // glScalef(2, 2, 2);
+  // glTranslatef(0, 4, 0);
+
   glVertexPointer(3, GL_FLOAT, 0, model_.vertices.data());
   glEnableClientState(GL_VERTEX_ARRAY);
   glDrawElements(GL_LINES, model_.facets.size(), GL_UNSIGNED_INT,
