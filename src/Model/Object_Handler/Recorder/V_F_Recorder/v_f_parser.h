@@ -20,9 +20,11 @@ class VFParser {
   static bool RecordDataFromFile(const std::string &file_path,
                                  s21::ObjectData &object_data);
 
-private:
-  static void RecordVertex(std::istringstream &iss, s21::ObjectData &object_data);
-  static void RecordFacet(std::istringstream &iss,  s21::ObjectData &object_data);
+ private:
+  static void RecordVertex(std::istringstream &iss,
+                           s21::ObjectData &object_data);
+  static void RecordFacet(std::istringstream &iss,
+                          s21::ObjectData &object_data);
 };
 }  // namespace s21
 

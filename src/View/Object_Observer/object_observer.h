@@ -8,7 +8,7 @@
 #include <QtOpenGLWidgets/QOpenGLWidget>
 
 #include "../../Controller/Object_Controller/object_controller.h"
-#include "../../Controller/Style_Controller/style_controlloer.h"
+#include "../Panel_Mediator/mediator.h"
 
 namespace Ui {
 class ObjectObserver;
@@ -18,45 +18,49 @@ class ObjectObserver : public QOpenGLWidget {
   Q_OBJECT
 
  public:
-  explicit ObjectObserver(s21::ObjectHandlerController *object_controller,
-                          s21::StyleHandlerController *style_controller,
-                          QWidget *parent = nullptr);
+  explicit ObjectObserver(Mediator *mediator, QWidget *parent = nullptr);
+  ~ObjectObserver() = default;
 
-  ~ObjectObserver() {}
-
-  void SetObjectController(s21::ObjectHandlerController *object_controller) {
-    object_controller_ = object_controller;
-  };
-
-  void SetStyleController(s21::StyleHandlerController *style_controller) {
-    style_controller_ = style_controller;
-  };
-
-  void GetData() { model_ = object_controller_->GetData(); };
-
-  void mousePressEvent(QMouseEvent *mo) { mPos = mo->pos(); }
-
-  void mouseMoveEvent(QMouseEvent *mo) {
-    xRot_m = 1 / M_PI * (mo->pos().y() - mPos.y());
-    yRot_m = 1 / M_PI * (mo->pos().x() - mPos.x());
-    update();
-  }
+  void SetObjectData(s21::ObjectData object_data);
+  void SetInitialStyleSettings(std::map<std::string, double> size_styles,
+                               std::map<std::string, int> drawing_styles,
+                               std::map<std::string, int> colors);
+  void SetSceneParameters(std::map<std::string, float> scene_parameters);
 
  private:
-  s21::ObjectHandlerController *object_controller_;
-  s21::StyleHandlerController *style_controller_;
-
-  Ui::ObjectObserver *ui;
-  s21::ObjectData model_;
-  float xRot_m, yRot_m;
-  QPoint mPos;
+  double scale_ = 1;
+  GLuint vertices_buffer_;
+  GLuint facets_buffer_;
+  size_t facets_size_;
+  std::map<std::string, double> sizes_;
+  std::map<std::string, int> colors_;
+  std::map<std::string, int> drawing_styles_;
+  std::map<std::string, double> size_styles_;
+  std::map<std::string, float> scene_parameters_;
+  std::vector<s21::Coordinates> coordinates_{{0, 0, 0}};
+  std::vector<s21::Coordinates> angles_{{0, 0, 0}};
+  Ui::ObjectObserver *ui{};
+  float x_rot_m_{}, y_rot_m_{};
+  QPoint m_pos_;
 
   void initializeGL();
   void resizeGL(int w, int h);
   void paintGL();
-  void draw_model();
-  void draw_points();
 
+  void mousePressEvent(QMouseEvent *mo);
+  void mouseMoveEvent(QMouseEvent *mo);
+
+  void FillBuffers(s21::ObjectData object_data);
+  void UpdateColors(std::map<std::string, int> colors);
+  void UpdateDrawingStyles(std::map<std::string, int> drawing_styles);
+  void UpdateSizeStyle(std::map<std::string, double> size_styles);
+  void UpdateCoordinates(std::vector<s21::Coordinates> coordinates);
+  void UpdateAngles(std::vector<s21::Coordinates> angles);
+  void UpdateScale(double scale);
+  void DrawModel();
+  void DrawPoints();
+  void SetProjection();
+  void ConnectUpdaters(Mediator *mediator);
 };
 
 #endif  // OBJECT_OBSERVER_H

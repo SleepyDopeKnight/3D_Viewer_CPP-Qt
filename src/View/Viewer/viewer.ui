@@ -49,7 +49,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_create_gif">
+   <widget class="QPushButton" name="button_create_img">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -57,7 +57,7 @@
      <rect>
       <x>25</x>
       <y>1165</y>
-      <width>311</width>
+      <width>641</width>
       <height>51</height>
      </rect>
     </property>
@@ -80,38 +80,8 @@ QPushButton:disabled{
     border-width: 0px;
     border-radius: 10px;
 }
-</string>
-    </property>
-    <property name="text">
-     <string>GIF</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="button_create_img">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>355</x>
-      <y>1165</y>
-      <width>311</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-    color:black;
-    background-color: white;
-    border-width: 0px;
-    border-radius: 10px;
-}
 
-QPushButton:disabled{
+QPushButton:pressed{
     color:black;
     background-color: gray;
     border-width: 0px;
@@ -135,6 +105,13 @@ QPushButton:disabled{
      <string notr="true">QPushButton#button_open_file{
     color:black;
     background-color: white;
+    border-width: 0px;
+    border-radius: 10px;
+}
+
+QPushButton#button_open_file:pressed{
+    color:black;
+    background-color: grey;
     border-width: 0px;
     border-radius: 10px;
 }</string>

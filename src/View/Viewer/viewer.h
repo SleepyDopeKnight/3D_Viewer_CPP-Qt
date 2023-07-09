@@ -9,9 +9,10 @@
 
 #include "../../Controller/Object_Controller/object_controller.h"
 #include "../../Controller/Style_Controller/style_controlloer.h"
-#include "../Object_Observer/object_observer.h"
 #include "../Interaction_Panel/Modification_Panel/modification_panel.h"
 #include "../Interaction_Panel/Style_Panel/style_panel.h"
+#include "../Object_Observer/object_observer.h"
+#include "../Panel_Mediator/mediator.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,20 +27,24 @@ class Viewer : public QMainWindow {
   Viewer(s21::ObjectHandlerController *object_controller,
          s21::StyleHandlerController *style_controller,
          QWidget *parent = nullptr);
+
   ~Viewer();
 
  private:
   Ui::Viewer *ui;
 
-  s21::ObjectHandlerController *object_controller_;
-  s21::StyleHandlerController *style_controller_;
+  Mediator *mediator_;
 
   ObjectObserver *object_observer_;
   StylePanel *style_panel_;
   ModificationPanel *modification_panel_;
 
+  s21::ObjectHandlerController *object_controller_;
+  s21::StyleHandlerController *style_controller_;
 
  private slots:
   void OpenFile();
+  void MakeScreen();
 };
+
 #endif  // VIEWER_H

@@ -5,12 +5,19 @@
 
 namespace s21 {
 class StyleHandlerController {
-public:
-  StyleHandlerController(s21::StyleHandler *style_model) : style_model_(style_model) {};
+ public:
+  StyleHandlerController(s21::StyleHandler *style_model);
 
-private:
+  std::map<std::string, int> GetColors();
+  std::map<std::string, double> GetSizes();
+  std::map<std::string, int> GetDrawingStyles();
+
+  void SetColors(std::map<std::string, int> colors);
+  void SetSizes(std::map<std::string, double> sizes);
+  void SetDrawingStyles(std::map<std::string, int> drawing_styles);
+
+ private:
   s21::StyleHandler *style_model_;
-
 };
 }  // namespace s21
 
