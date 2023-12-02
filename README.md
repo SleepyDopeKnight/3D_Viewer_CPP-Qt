@@ -14,6 +14,7 @@
 
 ## Chapter I - Project Architecture
 
+![3D Viewer](misc/images/viewer.png)
 ![3D Viewer](misc/images/architecture.png)
 
 ## Introduction

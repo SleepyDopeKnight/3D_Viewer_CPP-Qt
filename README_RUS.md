@@ -14,6 +14,7 @@
 
 ## Глава I - Архитектура проекта
 
+![3D Viewer](misc/images/viewer.png)
 ![3D Viewer](misc/images/architecture.png)
 
 ## Введение
