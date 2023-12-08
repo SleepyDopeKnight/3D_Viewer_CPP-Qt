@@ -41,9 +41,13 @@ void s21::VFParser::RecordFacet(std::istringstream &iss,
     std::istringstream facet_iss(facet_string);
     std::string facet_data;
     std::getline(facet_iss, facet_data, '/');
+    if (facet_string.find_first_not_of("f/0123456789") != std::string::npos) {
+      return;
+    }
     facet_value = std::stoi(facet_data) - 1;
     if (facet_value < 0) {
-      facet_value = (int)object_data.vertices.size() + facet_value + 1;
+      facet_value =
+          static_cast<int>(object_data.vertices.size()) + facet_value + 1;
     }
     source_facets.push_back(facet_value);
   }
